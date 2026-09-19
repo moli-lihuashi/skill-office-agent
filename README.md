@@ -13,7 +13,7 @@
 
 ---
 
-## 核心亮点（面试可讲）
+## 核心亮点
 
 ### 1. 渐进式技能模型（SKILL.md as Contract）
 
@@ -77,7 +77,7 @@ skills/table-stats/
 python run_desktop.py
 ```
 
-![Skill Office Agent Desktop GUI](docs/screenshots/desktop-gui.png)
+![Skill Office Agent Desktop GUI](skill.png)
 
 界面能力：
 
@@ -228,8 +228,9 @@ skill-office-agent/
 ├── templates/                    # 报告与邮件模板
 ├── data/samples/                 # 示例 CSV / Excel
 ├── data/workspace/               # 输出目录（演示参数 JSON）
-├── docs/screenshots/             # GUI 截图
-└── tests/test_agent.py           # 26 项端到端测试
+├── skill.png                 # 桌面 GUI 截图
+├── docs/                     # 示例执行输出等
+└── tests/test_agent.py       # 端到端测试
 ```
 
 ---
