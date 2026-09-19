@@ -1,0 +1,40 @@
+{
+  "skills_dir": "skills",
+  "data_dir": "data",
+  "workspace_dir": "data/workspace",
+  "knowledge_path": "knowledge/office_kb.json",
+  "templates_dir": "templates",
+  "logs_dir": "logs",
+  "router": {
+    "min_score": 2.0,
+    "enable_llm": true,
+    "strategy": "hybrid"
+  },
+  "fault_tolerance": {
+    "default_timeout": 30,
+    "retries": 2,
+    "backoff_factor": 1.5,
+    "circuit_breaker": {
+      "failure_threshold": 3,
+      "open_seconds": 60
+    },
+    "web_search_fallback": "knowledge_base"
+  },
+  "search": {
+    "timeout": 8,
+    "engine_order": ["duckduckgo", "wikipedia", "local_knowledge_base"]
+  },
+  "llm": {
+    "base_url": "",
+    "api_key": "",
+    "model": "",
+    "timeout": 40,
+    "polish": true,
+    "comment": "可填任意 OpenAI 兼容端点；也可用环境变量 LLM_BASE_URL / LLM_API_KEY / LLM_MODEL。本地密钥请勿提交；仓库内保留空配置。未配置时走规则路由 + 本地技能执行。"
+  },
+  "agent": {
+    "mode": "hybrid",
+    "llm_max_rounds": 4,
+    "comment": "mode: rule=纯规则技能链; llm_agent=模型 Function Calling 自主调工具(失败回落规则); hybrid=规则串技能+报告/邮件可选模型润色"
+  }
+}

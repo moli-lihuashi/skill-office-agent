@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "name": "office_kb",
+    "version": 1,
+    "description": "本地办公知识库，用于网络搜索失败时的降级兜底"
+  },
+  "articles": [
+    {
+      "id": "kb-remote-work",
+      "title": "远程办公协作要点",
+      "tags": ["远程办公", "协作", "会议", "异步"],
+      "keywords": ["远程办公", "remote", "协作效率", "异步沟通"],
+      "content": "远程办公的关键是异步文档、明确截止时间、固定同步会议。常用工具包括文档协作、项目看板与即时通讯。建议每日站会不超过15分钟，决策沉淀到文档。远程办公趋势显示混合办公成为常态，企业更关注输出而非工时。",
+      "url": "kb://remote-work"
+    },
+    {
+      "id": "kb-report",
+      "title": "办公报告写作结构",
+      "tags": ["报告", "写作", "办公"],
+      "keywords": ["写报告", "报告结构", "summary", "数据分析报告"],
+      "content": "标准办公报告结构：背景与目的、数据来源、方法说明、关键发现、风险与建议、附录。摘要控制在200字内，结论先行，图表配文字解读。邮件正文引用报告路径即可，不要贴全文。",
+      "url": "kb://report-structure"
+    },
+    {
+      "id": "kb-excel",
+      "title": "Excel/CSV 数据统计常见问题",
+      "tags": ["Excel", "CSV", "统计", "pandas"],
+      "keywords": ["excel统计", "csv分析", "groupby", "表格汇总"],
+      "content": "统计前先检查：列名是否含空格、数值列是否被识别为文本、是否存在合并单元录。CSV 常见编码问题可用 utf-8-sig 或 latin-1 重试。分组聚合建议先 group by 再 sum/mean，并输出排序后的 TopN。",
+      "url": "kb://excel-stats"
+    },
+    {
+      "id": "kb-email",
+      "title": "办公邮件写作规范",
+      "tags": ["邮件", "写作", "职场"],
+      "keywords": ["写邮件", "邮件模板", "通知", "email"],
+      "content": "办公邮件四段式：称呼与目的、背景/数据要点、行动项与截止时间、落款。主题要可检索，长度建议15字内。涉及数据时只写结论与关键指标，明细放附件或报告链接。",
+      "url": "kb://email-style"
+    },
+    {
+      "id": "kb-search",
+      "title": "本地文件检索技巧",
+      "tags": ["文件检索", "办公效率"],
+      "keywords": ["找文件", "文件检索", "文件名搜索", "内容搜索"],
+      "content": "先按扩展名缩小范围，再用文件名关键词；跨内容检索时优先搜标题/表头。Windows 可用 Everything，Agent 中则统一走 search_files 工具，并限制 depth 与跳过系统目录。",
+      "url": "kb://file-search-tips"
+    },
+    {
+      "id": "kb-python-office",
+      "title": "Python 办公自动化常用库",
+      "tags": ["python", "自动化"],
+      "keywords": ["python办公", "openpyxl", "pandas", "自动化"],
+      "content": "表格用 pandas/openpyxl，文档用 python-docx，演示用 python-pptx，PDF 用 pypdf。脚本化办公流程时，每一步输出 JSON，便于技能串联与失败重试。",
+      "url": "kb://python-office"
+    },
+    {
+      "id": "kb-meeting",
+      "title": "会议纪要与跟进邮件模板",
+      "tags": ["会议", "纪要", "邮件"],
+      "keywords": ["会议纪要", "跟进", "行动项"],
+      "content": "会议纪要应包含：时间地点、参会人、议题、决议、行动项（负责人+截止日期）。跟进邮件在24小时内发出，只列行动项与链接。",
+      "url": "kb://meeting-minutes"
+    }
+  ],
+  "file_hints": [
+    {
+      "note": "示例销售数据位于 data/samples/sales_2024.csv",
+      "suggest": "D:\\skill-office-agent\\data\\samples\\sales_2024.csv"
+    },
+    {
+      "note": "员工表位于 data/samples/employees.xlsx",
+      "suggest": "D:\\skill-office-agent\\data\\samples\\employees.xlsx"
+    },
+    {
+      "note": "生成的报告与邮件默认写入 data/workspace/",
+      "suggest": "D:\\skill-office-agent\\data\\workspace"
+    }
+  ],
+  "table_tips": [
+    "确认文件未被 Excel 独占锁定",
+    "列名模糊匹配可忽略空格与大小写",
+    "空文件或错误分隔符时尝试 sep=';' 与 encoding='utf-8-sig'",
+    "分组列不存在时会 fuzzy match，仍失败则返回 available columns"
+  ],
+  "office_playbooks": [
+    {
+      "name": "周报自动化",
+      "steps": ["file-search", "table-stats", "report-gen", "email-draft"],
+      "query_example": "找到销售表并统计各区域销售额，生成报告并起草同步邮件"
+    }
+  ]
+}
