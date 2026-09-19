@@ -1,0 +1,329 @@
+{
+  "ok": true,
+  "query": "找到销售表并统计各区域销售额，生成报告并起草同步邮件",
+  "mode": "hybrid",
+  "route": {
+    "skills": [
+      "file-search",
+      "table-stats",
+      "report-gen",
+      "email-draft"
+    ],
+    "strategy": "pipeline",
+    "pipeline": "search_stats_report_email",
+    "reason": "检索→统计→报告→邮件"
+  },
+  "results": [
+    {
+      "skill": "file-search",
+      "ok": true,
+      "data": {
+        "skill": "file-search",
+        "ok": true,
+        "count": 1,
+        "files": [
+          {
+            "path": "data\\samples\\sales_2024.csv",
+            "name": "sales_2024.csv",
+            "ext": ".csv",
+            "size": 361,
+            "mtime": "2026-09-19T13:52:44",
+            "match": "name"
+          }
+        ],
+        "root": "data\\samples",
+        "query": "sales_2024",
+        "ext": [
+          ".csv"
+        ],
+        "timestamp": "2026-09-19T15:03:31",
+        "warnings": [],
+        "fallback": null
+      },
+      "attempts": 1,
+      "elapsed_ms": 1421,
+      "error": null,
+      "error_type": null,
+      "degraded": false,
+      "fallback_used": null,
+      "timeline": [
+        {
+          "attempt": 1,
+          "ms": 1421,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "skill": "table-stats",
+      "ok": true,
+      "data": {
+        "skill": "table-stats",
+        "ok": true,
+        "path": "data/samples/sales_2024.csv",
+        "rows": 10,
+        "cols": 5,
+        "columns": [
+          "region",
+          "product",
+          "units",
+          "sales",
+          "rep"
+        ],
+        "profile": [
+          {
+            "column": "region",
+            "dtype": "object",
+            "non_null": 10,
+            "nunique": 4,
+            "sample": [
+              "华东",
+              "华北",
+              "华南"
+            ]
+          },
+          {
+            "column": "product",
+            "dtype": "object",
+            "non_null": 10,
+            "nunique": 3,
+            "sample": [
+              "笔记本",
+              "笔记本",
+              "手机"
+            ]
+          },
+          {
+            "column": "units",
+            "dtype": "int64",
+            "non_null": 10,
+            "nunique": 10,
+            "sample": [
+              "120",
+              "80",
+              "200"
+            ]
+          },
+          {
+            "column": "sales",
+            "dtype": "int64",
+            "non_null": 10,
+            "nunique": 9,
+            "sample": [
+              "540000",
+              "360000",
+              "480000"
+            ]
+          },
+          {
+            "column": "rep",
+            "dtype": "object",
+            "non_null": 10,
+            "nunique": 5,
+            "sample": [
+              "王芳",
+              "李强",
+              "张敏"
+            ]
+          }
+        ],
+        "numeric_describe": {
+          "units": {
+            "count": 10.0,
+            "mean": 95.0,
+            "std": 51.90803834132479,
+            "min": 30.0,
+            "25%": 62.5,
+            "50%": 85.0,
+            "75%": 117.5,
+            "max": 200.0
+          },
+          "sales": {
+            "count": 10.0,
+            "mean": 301200.0,
+            "std": 149426.9052078641,
+            "min": 120000.0,
+            "25%": 171000.0,
+            "50%": 312000.0,
+            "75%": 393750.0,
+            "max": 540000.0
+          }
+        },
+        "group_result": {
+          "group_by": "region",
+          "agg_col": "sales",
+          "agg_func": "sum",
+          "values": [
+            {
+              "key": "华东",
+              "value": 1020000
+            },
+            {
+              "key": "华南",
+              "value": 885000
+            },
+            {
+              "key": "华北",
+              "value": 804000
+            },
+            {
+              "key": "西南",
+              "value": 303000
+            }
+          ]
+        },
+        "preview": [
+          {
+            "region": "华东",
+            "product": "笔记本",
+            "units": 120,
+            "sales": 540000,
+            "rep": "王芳"
+          },
+          {
+            "region": "华北",
+            "product": "笔记本",
+            "units": 80,
+            "sales": 360000,
+            "rep": "李强"
+          },
+          {
+            "region": "华南",
+            "product": "手机",
+            "units": 200,
+            "sales": 480000,
+            "rep": "张敏"
+          },
+          {
+            "region": "华东",
+            "product": "手机",
+            "units": 150,
+            "sales": 360000,
+            "rep": "王芳"
+          },
+          {
+            "region": "华北",
+            "product": "平板",
+            "units": 60,
+            "sales": 180000,
+            "rep": "李强"
+          }
+        ],
+        "warnings": [],
+        "fallback": null,
+        "timestamp": "2026-09-19T15:03:32"
+      },
+      "attempts": 1,
+      "elapsed_ms": 1417,
+      "error": null,
+      "error_type": null,
+      "degraded": false,
+      "fallback_used": null,
+      "timeline": [
+        {
+          "attempt": 1,
+          "ms": 1417,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "skill": "report-gen",
+      "ok": true,
+      "data": {
+        "skill": "report-gen",
+        "ok": true,
+        "error": null,
+        "title": "生成报告",
+        "output_path": "data\\workspace\\report_20260919_150333.md",
+        "format": "md",
+        "sources": [
+          "file-search",
+          "table-stats"
+        ],
+        "preview": "# 生成报告\n\n- 生成时间：2026-09-19 15:03:33\n- 生成方式：Skill Office Agent / report-gen\n\n## 摘要\n\n报告覆盖 2 个技能产出：file-search、table-stats\n\n## 正文\n\n### 来源技能：`file-search`（成功）\n- 检索根目录：`data\\samples`\n- 命中数量：1\n- 文件列表：\n  - `data\\samples\\sales_2024.csv`\n\n### 来源技能：`table-stats`（成功）\n- 数据文件：`data/samples/sales_2024.csv`\n- 规模：10 行 × 5 列\n  - **units**: mean=95.0, min=30.0, max=200.0\n  - **sales**: mean=301200.0, min=120000.0, max=540000.0\n- 分组：`region` → `sales` (sum)\n  - 华东: 1020000\n  - 华南: 885000\n  - 华北: 804000\n  - 西南: 303000\n\n## 建议下一步\n\n1. 核对数据源路径与统计口径。\n2. 将关键结论同步给相关同事。\n3. 如需明细，可对原始表格再次运行 `table-stats`。\n\n---\n*本报告由技能化办公 Agent 自动生成。*\n",
+        "warnings": [],
+        "llm_polish": {
+          "enabled": false,
+          "used": false,
+          "error": null
+        },
+        "fallback": null,
+        "timestamp": "2026-09-19T15:03:33"
+      },
+      "attempts": 1,
+      "elapsed_ms": 1424,
+      "error": null,
+      "error_type": null,
+      "degraded": false,
+      "fallback_used": null,
+      "timeline": [
+        {
+          "attempt": 1,
+          "ms": 1424,
+          "ok": true
+        }
+      ],
+      "llm_polish": {
+        "enabled": false,
+        "used": false,
+        "error": null
+      }
+    },
+    {
+      "skill": "email-draft",
+      "ok": true,
+      "data": {
+        "skill": "email-draft",
+        "ok": true,
+        "to": "项目组",
+        "subject": "销售数据同步",
+        "tone": "formal",
+        "points": [
+          "相关文件 1 个已定位",
+          "数据文件：data/samples/sales_2024.csv，规模 10×5",
+          "units：均值 95.0，范围 [30.0, 200.0]",
+          "sales：均值 301200.0，范围 [120000.0, 540000.0]",
+          "分组结果（region）：华东=1020000，华南=885000，华北=804000",
+          "详细报告见：data\\workspace\\report_20260919_150333.md"
+        ],
+        "output_path": "data\\workspace\\email_20260919_150335.txt",
+        "preview": "收件人：项目组\n主题：销售数据同步\n\n尊敬的项目组：\n\n您好！\n\n现将相关信息同步如下：\n\n1. 相关文件 1 个已定位\n2. 数据文件：data/samples/sales_2024.csv，规模 10×5\n3. units：均值 95.0，范围 [30.0, 200.0]\n4. sales：均值 301200.0，范围 [120000.0, 540000.0]\n5. 分组结果（region）：华东=1020000，华南=885000，华北=804000\n6. 详细报告见：data\\workspace\\report_20260919_150333.md\n\n行动项：请相关同学在两个工作日内确认反馈。\n\n如有疑问欢迎随时沟通。\n\n——\nSkill Office Agent\n",
+        "warnings": [
+          "points empty; auto-derived from context"
+        ],
+        "llm_polish": {
+          "enabled": false,
+          "used": false,
+          "error": null
+        },
+        "fallback": null,
+        "timestamp": "2026-09-19T15:03:35"
+      },
+      "attempts": 1,
+      "elapsed_ms": 1512,
+      "error": null,
+      "error_type": null,
+      "degraded": false,
+      "fallback_used": null,
+      "timeline": [
+        {
+          "attempt": 1,
+          "ms": 1512,
+          "ok": true
+        }
+      ],
+      "llm_polish": {
+        "enabled": false,
+        "used": false,
+        "error": null
+      }
+    }
+  ],
+  "llm": null,
+  "summary": "任务：找到销售表并统计各区域销售额，生成报告并起草同步邮件\n路由策略：pipeline → 技能链：file-search → table-stats → report-gen → email-draft\n  - file-search: 成功 count=1 (1421ms)\n  - table-stats: 成功 rows=10 (1417ms)\n  - report-gen: 成功 → data\\workspace\\report_20260919_150333.md (1424ms)\n  - email-draft: 成功 → data\\workspace\\email_20260919_150335.txt (1512ms)",
+  "errors": [],
+  "degraded_skills": [],
+  "elapsed_ms": 5782,
+  "timestamp": "2026-09-19T15:03:35"
+}

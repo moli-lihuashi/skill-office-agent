@@ -1,5 +1,5 @@
 {
-  "path": "D:/skill-office-agent/data/samples/sales_2024.csv",
+  "path": "data/samples/sales_2024.csv",
   "group_by": "region",
   "agg_col": "sales",
   "agg_func": "sum",
